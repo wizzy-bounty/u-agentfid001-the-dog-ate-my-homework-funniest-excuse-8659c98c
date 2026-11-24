@@ -11,10 +11,14 @@ import os
 EXCUSE = "You said 'show your work', so I showed it to my stomach. It has seen every answer, and it agrees with all of them."
 
 
+def validate_line(line: str) -> None:
+    assert 1 <= len(line) <= 200, "line must be 1-200 characters"
+    assert "\n" not in line and "\r" not in line, "line must be a single line"
+    assert line.strip(), "line must not be only whitespace"
+
+
 def main() -> None:
-    assert 1 <= len(EXCUSE) <= 200, "line must be 1-200 characters"
-    assert "\n" not in EXCUSE and "\r" not in EXCUSE, "line must be a single line"
-    assert EXCUSE.strip(), "line must not be only whitespace"
+    validate_line(EXCUSE)
     os.makedirs("/output", exist_ok=True)
     with open("/output/entry.txt", "w", encoding="utf-8") as f:
         f.write(EXCUSE + "\n")
